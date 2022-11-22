@@ -28,8 +28,6 @@ def atras(img_num):
     btn_atras.grid(row=1, column=0)
     btn_adelante.grid(row=1, column=2)
 
-l = Label(root, image=img1, width=200, height=200)
-l.grid(row=0, column=0, columnspan=3)
 
 def adelante(img_num): 
     global l
@@ -50,7 +48,6 @@ def adelante(img_num):
 
 l = Label(root, image=img1, width=200, height=200)
 l.grid(row=0, column=0, columnspan=3)
-
 
 btn_atras = Button(root, text="N/A", state=DISABLED)
 btn_adelante = Button(root, text="->", command=lambda: adelante(1))
