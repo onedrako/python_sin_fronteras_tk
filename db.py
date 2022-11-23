@@ -19,7 +19,10 @@ conn.commit()
 
 def complete(id):
     def _complete():
-        print(id)
+      todo = c.execute("SELECT * FROM todo WHERE id = ?", (id,)).fetchone()
+      c.execute("UPDATE todo SET completed = ? WHERE id = ?", (not todo[3], id))
+      conn.commit()
+      render_todos()
     return _complete
       
 def render_todos():
@@ -30,8 +33,10 @@ def render_todos():
       id = rows[i][0]
       completed = rows[i][3]
       description = rows[i][2]
-      l = Checkbutton(frame, text=description, width=42, anchor="w", command=complete(id))
+      color = "#555555" if completed else "#000000"
+      l = Checkbutton(frame, text=description, fg=color, width=42, anchor="w", command=complete(id))
       l.grid(row=i, column=0, sticky="w")
+      l.select() if completed else l.deselect()
 
 def addTodo():
     todo = e.get()
